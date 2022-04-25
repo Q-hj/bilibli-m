@@ -1,0 +1,31 @@
+/* less变量 */
+
+@bg: linear-gradient(90deg, #4c7ad2 0%, #274680 100%);
+// 全局文字颜色
+@global-font-color: #e3e8f1;
+// 全局色调
+@global-color: #002462;
+// 默认色调
+@default-style: #4eb985;
+// 副色(表单组件颜色)
+@deputy-color: #5195e4;
+// 选项区域背景颜色
+@option-bg: rgba(14, 31, 131, 0.9);
+
+@border-color: darken(@deputy-color, 10%);
+// label文本颜色
+@label-color: #e3e8f1;
+@label-checked-color: lighten(@default-style, 10%);
+
+// @button-type: primary, success, info, warning, danger;
+// 按钮颜色属性
+@button-color: #ffffff;
+@button-types: {
+  primary: #228be6;
+  success: #0e9d5f;
+  info: #73b8d3;
+  warning: #ebba34;
+  danger: #ec676c;
+};
+// 按钮 高亮 时的亮度 ,小于 1 则更暗
+@button-hover-lighteness: 1.02;

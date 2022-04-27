@@ -1,39 +1,11 @@
-<template>
-  <main>
-    <router-view></router-view>
-  </main>
-
-  <footer id="foot-menu">
-    <router-link :to="item.path" v-for="(item, index) in menu" :key="index">
-      <img v-if="item.path !== currentPath" :src="getSrc(item.icon)" alt="" />
-      <img
-        v-if="item.path === currentPath"
-        :src="getSrc(item.icon + '(1)')"
-        alt=""
-      />
-      <span :class="{ active: item.path === currentPath }">{{
-        item.name
-      }}</span>
-    </router-link>
-  </footer>
-</template>
-
 <script setup>
-import {
-  ref,
-  toRaw,
-  getCurrentInstance,
-  computed,
-  reactive,
-  inject,
-  onMounted,
-} from 'vue'
-const { color } = inject('theme')
+import { ref, computed, reactive, inject, onMounted } from 'vue'
 
-// const { ctx } = getCurrentInstance();
-// console.log(ctx);
-// const currentPath = ctx.$router.currentRoute.value;
-const currentPath = ref('home')
+// import { useRoute } from 'vue-router'
+// const router = useRoute()
+// console.log(router.fullPath)
+
+const { color } = inject('theme')
 
 // vue3不再使用require来加载图片
 const iconSrc = computed(() => require(`../../assets/icon/${iconName}.png`))
@@ -41,9 +13,6 @@ const iconSrc = computed(() => require(`../../assets/icon/${iconName}.png`))
 const getSrc = (iconName) =>
   new URL(`../../assets/icon/${iconName}.png`, import.meta.url).href
 
-// onMounted(() => {
-// 	console.log(ctx);
-// });
 const menu = reactive([
   {
     name: '首页',
@@ -72,7 +41,29 @@ const menu = reactive([
   },
 ])
 </script>
+<template>
+  <main>
+    <router-view></router-view>
+  </main>
 
+  <footer id="foot-menu">
+    <router-link :to="item.path" v-for="(item, index) in menu" :key="index">
+      <img
+        v-if="!$route.fullPath.includes(item.path) && item.icon"
+        :src="getSrc(item.icon)"
+        alt=""
+      />
+      <img
+        v-if="$route.fullPath.includes(item.path) && item.icon"
+        :src="getSrc(item.icon + '(1)')"
+        alt=""
+      />
+      <span :class="{ active: $route.fullPath.includes(item.path) }">{{
+        item.name
+      }}</span>
+    </router-link>
+  </footer>
+</template>
 <style scope lang="less">
 main {
   height: calc(100% - 60px);
@@ -80,7 +71,7 @@ main {
 #foot-menu {
   width: 100%;
   height: 60px;
-  padding: 5px 0 10px;
+  padding: 5px 0;
   background-color: #fcfdff;
   position: fixed;
   z-index: 999;
@@ -90,37 +81,34 @@ main {
   justify-content: space-around;
 
   a {
-    width: 8%;
-    display: block;
-    &:nth-child(4) {
-      span {
-        margin-left: -0.5em;
-      }
+    display: flex;
+    flex-wrap: wrap;
+    // flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 8vw;
     }
     span {
+      width: 100%;
       color: #646a70;
-      font-size: 14px;
-      display: block;
+      font-size: 4vw;
       text-align: center;
-      white-space: nowrap;
       &.active {
         color: v-bind(color);
       }
     }
-  }
-  // 中间按钮
-  :nth-child(3) {
-    width: 48px;
-    height: 48px;
-    background-color: v-bind(color);
-    border-radius: 18px;
-    span {
-      font-size: 38px;
-      color: #fefeff;
-      line-height: 40px;
-    }
-    img {
-      display: none;
+    // 中间按钮
+    &:nth-child(3) {
+      width: 48px;
+      height: 48px;
+      background-color: v-bind(color);
+      border-radius: 18px;
+      span {
+        // display: block;
+        font-size: 38px;
+        color: #fefeff;
+      }
     }
   }
 }

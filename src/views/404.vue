@@ -1,9 +1,23 @@
 <template>
-	<div>
-		<nav>404</nav>
-	</div>
+  <div class="dynamic flex-cc">
+    <p>{{ props.msg }}功能暂未开放</p>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { inject } from 'vue'
+const { color } = inject('theme')
+const props = defineProps({
+  msg: String,
+})
+</script>
 
-<style scope></style>
+<style lang="less" scope>
+.dynamic {
+  height: calc(100vh - 70px);
+  p {
+    font-size: 8vw;
+    color: v-bind(color);
+  }
+}
+</style>

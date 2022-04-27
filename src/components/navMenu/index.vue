@@ -32,8 +32,6 @@ watch(activeTab, (newvalue, oldvalue) => {
 onMounted(() => {
   // 刚加载时 activeTab 设为菜单第一项
   activeTab.value = props.menu[0]
-
-  console.log(tabItem.value[0])
 })
 </script>
 

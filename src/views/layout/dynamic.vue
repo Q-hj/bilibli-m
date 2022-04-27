@@ -1,13 +1,14 @@
 <template>
-	<div>
-		<h1>动态</h1>
-	</div>
+  <div class="dynamic">
+    <notFound msg="动态"></notFound>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import notFound from '../404.vue'
+</script>
 
-<style scope>
-	div {
-		background-color: aqua;
-	}
+<style lang="less" scope>
+.dynamic {
+}
 </style>

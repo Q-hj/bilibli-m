@@ -1,13 +1,15 @@
 <template>
-	<div>
-		<h1>shop</h1>
-	</div>
+  <div class="shop">
+    <notFound msg="商城"></notFound>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import notFound from '../404.vue'
+</script>
 
-<style scope>
-	div {
-		background-color: aqua;
-	}
+<style lang="less" scope>
+.shop {
+  height: calc(100vh - 70px);
+}
 </style>

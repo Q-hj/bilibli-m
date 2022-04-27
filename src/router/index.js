@@ -42,7 +42,7 @@ export default createRouter({
     {
       path: '/video',
       name: 'video',
-      component: () => import('@/views/video'),
+      component: () => import('@/views/video/index.vue'),
     },
     {
       path: '/upload',
